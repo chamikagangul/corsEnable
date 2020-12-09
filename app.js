@@ -34,7 +34,7 @@ app.use(async function (err, req, res, next) {
 
 
   let r = await fetch(url);
-  let j = await r.json();
+  let j = await r.text();
   res.send(j);
 
   // axios.get(url)
