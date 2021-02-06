@@ -23,24 +23,24 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 
 // catch 404 and forward to error handler
-app.use(function (req, res, next) {
-  next(createError(404));
+app.use(function(req, res, next) {
+    next(createError(404));
 });
 
 // error handler
-app.use(async function (err, req, res, next) {
-  url = req.originalUrl.slice(1);
-  console.log(url)
+app.use(async function(err, req, res, next) {
+    url = req.originalUrl.slice(1);
+    console.log(url)
 
 
-  let r = await fetch(url);
-  let j = await r.text();
-  res.send(j);
+    let r = await fetch(url);
+    let j = await r.json();
+    res.send(j);
 
-  // axios.get(url)
-  // .then(function (response) {
-  //   res.send(response.data);
-  // });
+    // axios.get(url)
+    // .then(function (response) {
+    //   res.send(response.data);
+    // });
 
 });
 
