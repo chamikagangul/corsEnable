@@ -5,7 +5,7 @@ var cookieParser = require('cookie-parser');
 var logger = require('morgan');
 const fetch = require('node-fetch');
 const cors = require("cors");
-
+const request = require('request');
 
 
 var app = express();
@@ -33,14 +33,23 @@ app.use(async function(err, req, res, next) {
     console.log(url)
 
 
-    let r = await fetch(url);
-    let j = await r.json();
-    res.send(j);
+    // let r = await fetch(url);
+    // let j = await r.json();
+    // console.log(JSON.stringify(j));
+    // res.send(j);
 
     // axios.get(url)
     // .then(function (response) {
     //   res.send(response.data);
     // });
+
+    request({ url: url },
+        (error, response, body) => {
+            if (error || response.statusCode !== 200) {
+                return res.status(500).json({ type: 'error', message: err.message });
+            }
+            res.json(JSON.parse(body));
+        });
 
 });
 
